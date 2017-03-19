@@ -6,11 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
 @EnableAutoConfiguration 
-@PropertySource("config.properties")
 @SpringBootApplication
+@PropertySource(value = {
+        "classpath:config-${spring.profiles.active:prdt}.properties"
+})
 public class SearchApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SearchApplication.class, args);
 	}
+	
 }
