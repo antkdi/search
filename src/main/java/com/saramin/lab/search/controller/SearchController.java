@@ -26,7 +26,7 @@ public class SearchController {
 	
 	@RequestMapping("/search")
 	public String index(Model model ,SearchParameter param) {
-		model.addAttribute("name", "SpringBlog from Millky");
+		model.addAttribute("name", "Spring");
 		log.info("search Controller");
 		searchService.getSearchResult(env.getProperty("config"));
 		log.info(param.toString());
