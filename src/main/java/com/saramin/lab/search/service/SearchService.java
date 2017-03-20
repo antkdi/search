@@ -3,7 +3,9 @@ package com.saramin.lab.search.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.saramin.lab.search.module.SearchModule;
+import com.saramin.lab.search.dao.SearchDao;
+import com.saramin.lab.search.param.SearchParameter;
+import com.saramin.lab.search.vo.SearchResultVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,11 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 public class SearchService {
 	
 	@Autowired
-	SearchModule module;
+	SearchDao searchDao;
 
-	public void getSearchResult(String a){
-	
-		log.info("Search Result!!!");
-		module.dcSearch(a);
+	public SearchResultVO getSearchResult(SearchParameter param){
+		return searchDao.getSearchResultForAPI(param);
 	}
 }
