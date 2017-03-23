@@ -1,189 +1,277 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>통합검색 페이</title>
 
-<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
-<link rel="stylesheet" href="//d2d3qesrx8xj6s.cloudfront.net/dist/bootsnipp.min.css?ver=7d23ff901039aef6293954d33d23c066"> -->
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.js"></script>
-<![endif]-->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<style>
-/* CSS REQUIRED */
-.state-icon {
-    left: -5px;
-}
-.list-group-item-primary {
-    color: rgb(255, 255, 255);
-    background-color: rgb(66, 139, 202);
+<!-- Le styles -->
+<link href="/resources/css/bootstrap.css" rel="stylesheet">
+<style type="text/css">
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
 }
 
-/* DEMO ONLY - REMOVES UNWANTED MARGIN */
-.well .list-group {
-    margin-bottom: 0px;
+.sidebar-nav {
+	padding: 9px 0;
+}
+
+@media ( max-width : 980px) {
+	/* Enable use of floated navbar text */
+	.navbar-text.pull-right {
+		float: none;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
 }
 </style>
+<link href="/resources/css/bootstrap-responsive.css" rel="stylesheet">
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
-$(function () {
-    $('.list-group.checked-list-box .list-group-item').each(function () {
-        
-        // Settings
-        var $widget = $(this),
-            $checkbox = $('<input type="checkbox" class="hidden" />'),
-            color = ($widget.data('color') ? $widget.data('color') : "primary"),
-            style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
-            settings = {
-                on: {
-                    icon: 'glyphicon glyphicon-check'
-                },
-                off: {
-                    icon: 'glyphicon glyphicon-unchecked'
-                }
-            };
-            
-        $widget.css('cursor', 'pointer')
-        $widget.append($checkbox);
-
-        // Event Handlers
-        $widget.on('click', function () {
-            $checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-        $checkbox.on('change', function () {
-            updateDisplay();
-        });
-          
-
-        // Actions
-        function updateDisplay() {
-            var isChecked = $checkbox.is(':checked');
-
-            // Set the button's state
-            $widget.data('state', (isChecked) ? "on" : "off");
-
-            // Set the button's icon
-            $widget.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$widget.data('state')].icon);
-
-            // Update the button's color
-            if (isChecked) {
-                $widget.addClass(style + color + ' active');
-            } else {
-                $widget.removeClass(style + color + ' active');
-            }
-        }
-
-        // Initialization
-        function init() {
-            
-            if ($widget.data('checked') == true) {
-                $checkbox.prop('checked', !$checkbox.is(':checked'));
-            }
-            
-            updateDisplay();
-
-            // Inject the icon if applicable
-            if ($widget.find('.state-icon').length == 0) {
-                $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span>');
-            }
-        }
-        init();
-    });
-    
-    $('#get-checked-data').on('click', function(event) {
-        event.preventDefault(); 
-        var checkedItems = {}, counter = 0;
-        $("#check-list-box li.active").each(function(idx, li) {
-            checkedItems[counter] = $(li).text();
-            counter++;
-        });
-        $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
-    });
-});
+	$(document).ready(function(){
+		
+		$(document).on("click",".jik",function(){
+			$('#dam').show();
+		});
+		
+		$(document).on("click",".jik",function(){
+			$('#dam').show();
+		});
+		
+	});
+	
 </script>
 </head>
 <body>
-	<div>
-		<h1>안녕하세요!.</h1>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2">
+				<h5>필터 도우미</h5>
+				<div class="well sidebar-nav">
+					<div>
+						<ul class="nav nav-list">
+							<li class="nav-header">직종 (3494)</li>
+							<li><input type="checkbox" id="jik1" class="jik" style="vertical-align: auto;float:left;"/> <label for="jik1" style="" >응용프로그래머  (1034) </label></li>
+							<li ><input type="checkbox" id="jik2" class="jik" style="vertical-align: top;float:left;"/> <label for="jik2" style="" >Java (1034)</label></li>
+							<li ><input type="checkbox" id="jik3" class="jik" style="vertical-align: top;float:left;"/> <label for="jik3" style="" >python (1034)</label></li>
+							<li ><input type="checkbox" id="jik4" class="jik" style="vertical-align: top;float:left;"/> <label for="jik4" style="" >안드로이드 (1034)</label></li>
+						</ul>
+					</div>
+					<div style="display:none;" id="dam">
+						<ul class="nav nav-list">
+							<li class="nav-header">→담당업무</li>
+							<li><input type="checkbox" id="i_jik1" style="vertical-align: auto;float:left;"/> <label for="i_jik1" style="" >빅데이터 분석  (334) </label></li>
+							<li ><input type="checkbox" id="i_jik2" style="vertical-align: top;float:left;"/> <label for="i_jik2" style="" >빅데이터 마이닝 (234)</label></li>
+						</ul>
+					</div>
+					<div>
+						<ul class="nav nav-list">
+							<li class="nav-header">지역 (2912)</li>
+							<li><input type="checkbox" id="loc1" class="loc" style="vertical-align: auto;float:left;"/> <label for="loc1" style="" >서울 > 구로구 (323) </label></li>
+							<li><input type="checkbox" id="loc2" class="loc" style="vertical-align: auto;float:left;"/> <label for="loc2" style="" >서울 > 마포구 (291)</label></li>
+							<li><input type="checkbox" id="loc3" style="vert
+							ical-align: auto;float:left;"/> <label for="loc3" style="" >경기 > 성남시 분당구 (806)</label></li>
+							<li><input type="checkbox" id="loc4" style="vertical-align: auto;float:left;"/> <label for="loc4" style="" >부산 > 부산진구 (333)</label></li>
+							<li><input type="checkbox" id="loc5" style="vertical-align: auto;float:left;"/> <label for="loc5" style="" >경북 > 칠곡군 (32)</label></li>
+						</ul>
+					</div>
+					
+					<div style="display:none;">
+						<ul class="nav nav-list">
+							<li class="nav-header">→인근지하철</li>
+							<li><input type="checkbox" id="jik1" style="vertical-align: auto;float:left;"/> <label for="jik1" style="" >신도림(1호선) (24) </label></li>
+							<li ><input type="checkbox" id="jik2" style="vertical-align: top;float:left;"/> <label for="jik2" style="" >오류역(234)</label></li>
+						</ul>
+					</div>
+					<div>
+						<ul  class="nav nav-list">
+							<li class="nav-header">경력/학력 </li>
+						</ul>
+						
+						<table class="nav nav-list" border="1" width="50%" style="float:left;border-right: 0px;">
+							<thead>
+								<tr>
+									<td>경력</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" id="pos1" style="vertical-align: auto;float:left;"/> <label for="pos1" style="" >신입</label></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="pos2" style="vertical-align: auto;float:left;"/> <label for="pos2" style="" >경력</label></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="pos3" style="vertical-align: auto;float:left;"/> <label for="pos3" style="" >경력 무관</label></td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="nav nav-list" border="1" width="50%" style="float:left;">
+							<thead>
+								<tr>
+									<td>학력</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" id="sch1" style="vertical-align: auto;float:left;"/> <label for="sch1" style="" >대학(4년) 졸업</label></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="sch2" style="vertical-align: auto;float:left;"/> <label for="sch2" style="" >대학(2,3년) 졸업</label></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="sch3" style="vertical-align: auto;float:left;"/> <label for="sch3" style="" >석사 이상 </label></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div>
+						<ul  class="nav nav-list">
+							<li class="nav-header">근무형태 / 채용구분</li>
+						</ul>
+						
+						<table class="nav nav-list" border="1" width="50%" style="float:left;border-right: 0px;">
+							<thead>
+								<tr>
+									<td>근무형태</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" id="biz1" style="vertical-align: auto;float:left;"/> <label for="biz1" style="" >정규직</label></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="biz2" style="vertical-align: auto;float:left;"/> <label for="biz2" style="" >계약직</label></td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="nav nav-list" border="1" width="50%" style="float:left;">
+							<thead>
+								<tr>
+									<td>채용구분</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" id="type1" style="vertical-align: auto;float:left;"/> <label for="type1" style="" >일반채용 </label></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="type2" style="vertical-align: auto;float:left;"/> <label for="type2" style="" >헤드헌팅 </label></td>
+								</tr>
+								<tr>
+									<td><input type="checkbox" id="type3" style="vertical-align: auto;float:left;"/> <label for="type3" style="" >파견대행 </label></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<br/>
+					<div>
+						<ul class="nav nav-list">
+							<li class="nav-header">선택 사항</li>
+							<li><input type="checkbox" id="exc1" style="vertical-align: auto;float:left;"/> <label for="exc1" style="" >입사지원한 공고 제외</label></li>
+							<li><input type="checkbox" id="exc2" style="vertical-align: auto;float:left;"/> <label for="exc2" style="" >조회한 공고 제외</label></li>
+							<li><input type="checkbox" id="exc3" style="vertical-align: auto;float:left;"/> <label for="exc3" style="" >스크랩한 공고 제외</label></li>
+						</ul>
+					</div>
+					
+					<div align="center" style="padding-top:20px;">
+						<ul class="nav nav-list">
+							<li><input type="button" value="검색" style="width:200px;" /></li>
+						</ul>
+					</div>
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+			<div class="span9">
+				<div class="hero-unit">
+					<h2>검색 결과</h2>
+					<!-- <p></p> -->
+					<!-- <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p> -->
+				</div>
+				<div class="span10">
+					<h2>Heading</h2>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce
+						dapibus, tellus ac cursus commodo, tortor mauris condimentum
+						nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+						malesuada magna mollis euismod. Donec sed odio dui.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<!--/span-->
+				<div class="span10">
+					<h2>Heading</h2>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce
+						dapibus, tellus ac cursus commodo, tortor mauris condimentum
+						nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+						malesuada magna mollis euismod. Donec sed odio dui.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<!--/span-->
+				<div class="span10">
+					<h2>Heading</h2>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce
+						dapibus, tellus ac cursus commodo, tortor mauris condimentum
+						nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+						malesuada magna mollis euismod. Donec sed odio dui.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<!--/span-->
+				<div class="span10">
+					<h2>Heading</h2>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce
+						dapibus, tellus ac cursus commodo, tortor mauris condimentum
+						nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+						malesuada magna mollis euismod. Donec sed odio dui.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<!--/span-->
+				<div class="span10">
+					<h2>Heading</h2>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce
+						dapibus, tellus ac cursus commodo, tortor mauris condimentum
+						nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+						malesuada magna mollis euismod. Donec sed odio dui.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<!--/span-->
+				<div class="span10">
+					<h2>Heading</h2>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce
+						dapibus, tellus ac cursus commodo, tortor mauris condimentum
+						nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+						malesuada magna mollis euismod. Donec sed odio dui.</p>
+					<p>
+						<a class="btn" href="#">View details &raquo;</a>
+					</p>
+				</div>
+					<!--/span-->
+				<!-- row -->
+			</div>
+			<!--/span-->
+		</div>
+		<!--/row-->
+
+		<hr>
+
+		<footer>
+		<p>&copy; Company 2013</p>
+		</footer>
+
 	</div>
-	
-	<div class="container" style="margin-top:20px;">
-	<div class="row">
-        <div class="col-xs-6">
-            <h3 class="text-center">Basic Example</h3>
-            <div class="well" style="max-height: 300px;width:300px;">
-        		<ul class="list-group checked-list-box">
-                  <li class="list-group-item">Cras justo odio
-                  	<ul>
-                  		<li class="list-group-item">333</li>
-                  	</ul>
-                  </li>
-                  
-                  <li class="list-group-item" data-checked="true">Dapibus ac facilisis in</li>
-                  <li class="list-group-item">Morbi leo risus</li>
-                  <li class="list-group-item">Porta ac consectetur ac</li>
-                  <li class="list-group-item">Vestibulum at eros</li>
-                  <li class="list-group-item">Cras justo odio</li>
-                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                  <li class="list-group-item">Morbi leo risus</li>
-                  <li class="list-group-item">Porta ac consectetur ac</li>
-                  <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <h3 class="text-center">Colorful Example</h3>
-            <div class="well" style="max-height: 300px;overflow: auto;">
-            	<ul id="check-list-box" class="list-group checked-list-box">
-                  <li class="list-group-item">Cras justo odio</li>
-                  <li class="list-group-item" data-color="success">Dapibus ac facilisis in</li>
-                  <li class="list-group-item" data-color="info">Morbi leo risus</li>
-                  <li class="list-group-item" data-color="warning">Porta ac consectetur ac</li>
-                  <li class="list-group-item" data-color="danger">Vestibulum at eros</li>
-                </ul>
-                <br />
-                <button class="btn btn-primary col-xs-12" id="get-checked-data">Get Checked Data</button>
-            </div>
-            <pre id="display-json"></pre>
-        </div>
-	</div>
-    <div class="row">
-        <div class="col-xs-6">
-            <h3 class="text-center">Using Button Style's</h3>
-            <div class="well" style="max-height: 300px;overflow: auto;">
-        		<ul class="list-group checked-list-box">
-                  <li class="list-group-item" data-style="button">Cras justo odio</li>
-                  <li class="list-group-item" data-style="button" data-color="success">Dapibus ac facilisis in</li>
-                  <li class="list-group-item" data-style="button" data-color="info">Morbi leo risus</li>
-                  <li class="list-group-item" data-style="button" data-color="warning">Porta ac consectetur ac</li>
-                  <li class="list-group-item" data-style="button" data-color="danger">Vestibulum at eros</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-xs-6">
-            <h3 class="text-center">Just a Small Party</h3>
-            <div class="well" style="max-height: 300px;overflow: auto;">
-            	<ul class="list-group checked-list-box">
-                  <li class="list-group-item" data-style="button">Cras justo odio</li>
-                  <li class="list-group-item" data-color="success">Dapibus ac facilisis in</li>
-                  <li class="list-group-item" data-style="button" data-color="info">Morbi leo risus</li>
-                  <li class="list-group-item" data-color="warning">Porta ac consectetur ac</li>
-                  <li class="list-group-item" data-style="button" data-color="danger">Vestibulum at eros</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+	<!--/.fluid-container-->
 </body>
 </html>

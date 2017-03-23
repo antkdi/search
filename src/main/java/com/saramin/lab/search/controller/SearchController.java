@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.saramin.lab.search.param.SearchParameter;
 import com.saramin.lab.search.service.SearchService;
+import com.saramin.lab.search.vo.RestResultVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,10 +27,19 @@ public class SearchController {
 		model.addAttribute("name", "Spring");
 		log.info("search Controller");
 		log.info(env.getProperty("engine.ip"));
-		searchService.getSearchResult(param);
+		RestResultVO result = searchService.getSearchResultForRest(param);
+		return "search";
+	}
+	
+	@RequestMapping("/test")
+	public String test(Model model ,SearchParameter param) {
+		model.addAttribute("name", "Spring");
+		log.info("search Controller");
+		log.info(env.getProperty("engine.ip"));
+		//searchService.getSearchResult(param);
 		
 		log.info(param.toString());
-		return "search";
+		return "test";
 	}
 
 }

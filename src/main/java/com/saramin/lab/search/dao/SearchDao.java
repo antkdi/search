@@ -3,9 +3,11 @@ package com.saramin.lab.search.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.saramin.lab.search.module.RestSearchModule;
 import com.saramin.lab.search.module.SearchModule;
 import com.saramin.lab.search.param.SearchParameter;
 import com.saramin.lab.search.param.SearchQueryBuilder;
+import com.saramin.lab.search.vo.RestResultVO;
 import com.saramin.lab.search.vo.SearchResultVO;
 
 @Repository
@@ -15,7 +17,7 @@ public class SearchDao {
 	SearchModule module;
 	
 	@Autowired
-	SearchQueryBuilder builder;
+	RestSearchModule restModule;
 	
 	public SearchResultVO getSearchResultForAPI(SearchParameter param){
 		
@@ -78,7 +80,7 @@ public class SearchDao {
 		recruitUpjikList.setSearchLog();
 		return recruitUpjikList.getResult("lvs");*/
 		
-		builder.init();
+		SearchQueryBuilder builder = new SearchQueryBuilder();
 		if(param.getKwd() != null && param.getKwd().length() > 0){
 			builder.setWhereClause(new StringBuffer("text_idx ='" +param.getKwd() + "' allword"));
 		}
@@ -88,10 +90,25 @@ public class SearchDao {
 			}
 		}
 		
-		builder.setScenario("abbd");
-		SearchResultVO result = null; 
-		//result = module.search(builder);
-		return result;
+		
+		return module.search(builder);
+	}
+	
+public RestResultVO getSearchResultForRest(SearchParameter param){
+		SearchQueryBuilder builder = new SearchQueryBuilder();
+		if(param.getKwd() != null && param.getKwd().length() > 0){
+			builder.setWhereClause(new StringBuffer("text_idx ='" +param.getKwd() + "' allword"));
+		}
+		if(param.getSort() != null){
+			if(param.getSort().equals("r")){
+				builder.setSortingClause(new StringBuffer("order by $relevance desc"));
+			}
+		}else{
+			builder.setSortingClause(new StringBuffer("order by $relevance desc"));
+		}
+		
+		
+		return restModule.searchAPI("rec_idx,title,reg_dt,closing_dt", "recruit_pjik.recruit_upjik", builder.getWhereClause() +" " + builder.getSortingClause());
 	}
 
 }

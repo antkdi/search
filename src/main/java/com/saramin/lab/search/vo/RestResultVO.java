@@ -3,6 +3,8 @@ package com.saramin.lab.search.vo;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +12,11 @@ import lombok.Setter;
 @Setter
 public class RestResultVO {
 	
+	@JsonProperty("status")
 	private String status;
+	@JsonProperty("message")
 	private String message;
+	@JsonProperty("result")
 	private HashMap<String, Object> result;
 
 	@SuppressWarnings("unchecked")
