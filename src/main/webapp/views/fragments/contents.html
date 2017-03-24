@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<body>
+	<div class="span9" th:fragment="contents" style="min-width: 800px;max-width: 800px;">
+		<form id="searchForm" name="searchForm" action="search">
+		
+		<div class="hero-unit">
+			<div class="gnb">
+				<input type="text" name="kwd" value="" maxlength="35" style="width:100%;height:30px;"/>
+			</div>
+			<h2 th:text="'검색어 \''+${searchParam.kwd}+'\'' + '의 검색결과 (' + ${resultCount} + ')'"></h2>
+			
+			<!-- <p></p> -->
+			<!-- <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p> -->
+		</div>
+		
+		<div class="list">
+			<div class="span10" th:each="instance : ${resultList}">
+				<div>
+					<h4 th:utext="'['+ ${instance.fields.rec_idx}+ ']['+${instance.fields.company_nm}+']'+${instance.fields.title}"></h4> 
+				</div>
+				<p th:utext="${instance.fields.recruit_contents_nohtml}"></p>
+			</div>
+		</div>
+		</form>
+		<!-- row -->
+	</div>
+</body>
+</html>

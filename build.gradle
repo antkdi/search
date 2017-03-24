@@ -27,6 +27,7 @@ configurations {
 }
 
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compileOnly('org.projectlombok:lombok')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
@@ -43,11 +44,14 @@ dependencies {
 	//for JSP
 	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '8.5.11'
 	//JSTL
-	compile group: 'jstl', name: 'jstl', version: '1.2'
+	//compile group: 'jstl', name: 'jstl', version: '1.2'
 	//Lang
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
 	//Local
 	compile fileTree(dir: 'extLib', include: '*.jar')
+	
+
+	
 	
 	
 }

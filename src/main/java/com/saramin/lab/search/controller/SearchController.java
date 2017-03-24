@@ -1,5 +1,8 @@
 package com.saramin.lab.search.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -24,11 +27,21 @@ public class SearchController {
 	
 	@RequestMapping("/search")
 	public String index(Model model ,SearchParameter param) {
+		
 		model.addAttribute("name", "Spring");
 		log.info("search Controller");
 		log.info(env.getProperty("engine.ip"));
-		RestResultVO result = searchService.getSearchResultForRest(param);
+		RestResultVO result = new RestResultVO();
+		if(param.getKwd().length() > 0){
+			result = searchService.getSearchResultForRest(param);
+		}
+		
+		model.addAttribute("searchParam",param);
+		model.addAttribute("resultList",result.getRows());
+		model.addAttribute("resultCount",result.getTotalCount());
+		
 		return "search";
+		
 	}
 	
 	@RequestMapping("/test")

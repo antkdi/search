@@ -17,6 +17,11 @@ public class SearchService {
 	SearchDao searchDao;
 
 	public RestResultVO getSearchResultForRest(SearchParameter param){
-		return searchDao.getSearchResultForRest(param);
+		
+		RestResultVO result = new RestResultVO();
+		if(param.getKwd().length() > 0){
+			result = searchDao.getSearchResultForRest(param);
+		}
+		return result;
 	}
 }

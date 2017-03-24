@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<head th:replace="fragments/header :: header"></head>
+<body>
+
+	<div class="container">
+		<div class="row" style="min-width: 1200px;">
+		
+			<!-- Filter -->
+			<div th:replace="fragments/filter :: filter"></div>
+			<!--/span-->
+			
+			<!-- content -->
+			<div th:if="${resultCount} != 0">
+				<div th:replace="fragments/contents :: contents"></div>
+			</div>
+			
+			<div th:if="${resultCount} == 0">
+				<div th:replace="fragments/noResult :: noResult"></div>
+			</div>
+			
+		</div>
+		<!--/row-->
+		<footer th:replace="fragments/footer:: footer"></footer>
+	</div>
+	<!--/.fluid-container-->
+</body>
+</html>

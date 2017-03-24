@@ -48,13 +48,7 @@ public class RestSearchModule {
 			BufferedReader reader = getBufferedReader(apiUrl);
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-			mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-			
-			String tmp;
-			while ( (tmp = reader.readLine()) != null){
-				log.info(tmp);
-			}
-			
+			//mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
 			
 			RestResultVO resultVO = mapper.readValue(reader, RestResultVO.class);
 			reader.close();

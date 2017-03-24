@@ -10,6 +10,15 @@ public class GlobalConstant {
 	
 	public static String KWD_SPELL_CHECK_NM = "SEARCH_KEYWORD_FILTER_PATTRN";
 	
+	public static String REST_VOL_RECRUIT_UPJIK = "recruit_upjik";
+	public static String REST_FD_RECRUIT_UPJIK = "recruit_upjik.field";
+	
+	public static HashMap<String,String> REST_VOL_MAP = new HashMap<String,String>(){
+		{
+			put("recruit_upjik","recruit_upjik.recruit_upjik");
+		}
+	};
+	
 	// HashMap <parameter name, column name>
 	public static HashMap<String, String> PARAM_MAP = new HashMap<String, String>();
 

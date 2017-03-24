@@ -7,9 +7,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j 
 @Getter
 @Setter
+@ToString
 public class RestResultVO {
 	
 	@JsonProperty("status")
@@ -21,7 +25,11 @@ public class RestResultVO {
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<HashMap<String, Object>> getRows() {
-		return (ArrayList<HashMap<String, Object>>) getResult().get("rows");
+		HashMap<String,Object> result = getResult();
+		if(result == null)
+			return new ArrayList<HashMap<String,Object>>();
+		
+		return (ArrayList<HashMap<String, Object>>) result.get("rows");
 	}
 	
 	public int getRowsCount() {
@@ -30,7 +38,11 @@ public class RestResultVO {
 	
 	@SuppressWarnings("unchecked")
 	public HashMap<String, Object> getFirstRow() {
-		return (HashMap<String, Object>) getRows().get(0).get("fields");
+		return getRows().size()>0 ? (HashMap<String, Object>) getRows().get(0).get("fields") : new HashMap<String,Object>();
+	}
+	
+	public int getTotalCount() {
+		return (int)getResult().get("total_count");
 	}
 
 }
