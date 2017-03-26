@@ -1,6 +1,8 @@
 package com.saramin.lab.search.module;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -45,7 +47,12 @@ public class RestSearchModule {
 											fromStr, 
 											URLEncoder.encode(whereStr,"UTF-8"));
 			log.info("URL:"+ apiUrl);
-			BufferedReader reader = getBufferedReader(apiUrl);
+			BufferedReader reader;
+			if(env.getProperty("connect.mode").equals("home")){
+				reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(env.getProperty("home.file"))),"UTF-8"));
+			}else{
+				reader = getBufferedReader(apiUrl);
+			}
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 			//mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);

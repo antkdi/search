@@ -7,7 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
 import com.konantech.konansearch.KSEARCH;
-import com.saramin.lab.search.param.SearchQueryBuilder;
+import com.saramin.lab.search.query.SearchQueryBuilder;
 import com.saramin.lab.search.vo.SearchResultVO;
 
 import lombok.extern.slf4j.Slf4j;

@@ -18,8 +18,10 @@ public class RestResultVO {
 	
 	@JsonProperty("status")
 	private String status;
+	
 	@JsonProperty("message")
 	private String message;
+	
 	@JsonProperty("result")
 	private HashMap<String, Object> result;
 

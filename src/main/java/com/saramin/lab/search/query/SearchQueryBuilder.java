@@ -1,4 +1,4 @@
-package com.saramin.lab.search.param;
+package com.saramin.lab.search.query;
 
 import org.springframework.stereotype.Component;
 
