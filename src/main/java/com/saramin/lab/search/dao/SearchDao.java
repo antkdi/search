@@ -135,5 +135,38 @@ public class SearchDao {
 
 		return restModule.searchAPI(fields, volNm, where);
 	}
+	
+	
+	public RestResultVO getSearchResultForRestGroupBy(SearchParameter param){
+		SearchQueryBuilder builder = new SearchQueryBuilder();
+		String volNm = env.getProperty(GlobalConstant.REST_VOL_RECRUIT_UPJIK);
+		String fields = "count(*)";
+		String where = "";
+
+		if(param.getKwd() != null && param.getKwd().length() > 0){
+			builder.setWhereClause(new StringBuffer("text_idx ='" +param.getKwd() + "' allword group by jikjong_cd,jikjong_mcode"));
+		}
+
+		where = builder.getWhereClause().toString();
+
+		return restModule.searchAPI(fields, volNm, where);
+	}
+	
+	public RestResultVO getSearchResultForRestGroupByCount(SearchParameter param){
+		SearchQueryBuilder builder = new SearchQueryBuilder();
+		String volNm = env.getProperty(GlobalConstant.REST_VOL_RECRUIT_UPJIK);
+		String fields = "count(*)";
+		String where = "";
+
+		if(param.getKwd() != null && param.getKwd().length() > 0){
+			builder.setWhereClause(new StringBuffer("text_idx ='" +param.getKwd() + "' allword group by jikjong_cd"));
+		}
+
+		
+		where = builder.getWhereClause().toString();
+
+		return restModule.searchAPI(fields, volNm, where);
+	}
+	
 
 }

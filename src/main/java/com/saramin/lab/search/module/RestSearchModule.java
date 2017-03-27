@@ -1,23 +1,22 @@
 package com.saramin.lab.search.module;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
 
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
 import com.saramin.lab.search.common.GlobalConstant;
 import com.saramin.lab.search.vo.RestResultVO;
-import com.saramin.lab.search.vo.SearchResultVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +37,7 @@ public class RestSearchModule {
 	 */
 	public RestResultVO searchAPI(String selectStr, String fromStr, String whereStr) {
 		
+		RestResultVO restVO = new RestResultVO();
 		//String apiUrl = "http://182.162.109.118:6166/search";
 		String apiUrl = env.getProperty("rest.url");
 
@@ -48,23 +48,32 @@ public class RestSearchModule {
 											URLEncoder.encode(whereStr,"UTF-8"));
 			log.info("URL:"+ apiUrl);
 			BufferedReader reader;
-			if(env.getProperty("connect.mode").equals("home")){
-				reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(env.getProperty("home.file"))),"UTF-8"));
-			}else{
-				reader = getBufferedReader(apiUrl);
+			reader = getBufferedReader(apiUrl);
+			StringBuffer jsonStr = readerToStrBuff(reader);
+			
+			JSONParser parser = new JSONParser();
+			Object obj;
+			obj = parser.parse(jsonStr.toString());
+			
+			JSONObject jsonObj = (JSONObject) obj;
+			restVO.setStatus((String)jsonObj.get("status"));
+			
+			if(restVO.getStatus().equals("Failed")){
+				throw new IOException("Konan Rest Search Failed:" + (String)jsonObj.get("message"));
 			}
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-			//mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
 			
-			RestResultVO resultVO = mapper.readValue(reader, RestResultVO.class);
-			reader.close();
+			JSONObject resultObj = (JSONObject) jsonObj.get("result");
+			restVO.setTotal((long)resultObj.get("total_count"));
 			
-			return resultVO;
+			JSONArray arr = (JSONArray) resultObj.get("rows");
+			
+			return restVO;
 
 		} catch (IOException e ) {
 			e.printStackTrace();
-		} 
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
@@ -78,6 +87,21 @@ public class RestSearchModule {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public StringBuffer readerToStrBuff(BufferedReader reader) {
+		StringBuffer sb = new StringBuffer();
+		String tmp;
+		try {
+			while ( (tmp = reader.readLine()) != null){
+				sb.append(tmp);
+				sb.append(System.lineSeparator());
+			}
+		} catch (IOException e) {
+			log.error("BufferRead Error : ",e);
+		}
+		
+		return sb;
 	}
 
 }

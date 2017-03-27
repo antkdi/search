@@ -1,19 +1,13 @@
 package com.saramin.lab.search.controller;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.saramin.lab.search.param.SearchParameter;
+import com.saramin.lab.search.service.RestService;
 import com.saramin.lab.search.service.SearchService;
 import com.saramin.lab.search.vo.RestResultVO;
 
@@ -27,22 +21,25 @@ public class SearchController {
 	SearchService searchService;
 	
 	@Autowired
+	RestService restService;
+	
+	@Autowired
 	Environment env;
 	
 	@RequestMapping("/search")
 	public String index(Model model ,SearchParameter param) {
 		
-		model.addAttribute("name", "Spring");
-		log.info("search Controller");
-		log.info(env.getProperty("engine.ip"));
 		RestResultVO result = new RestResultVO();
 		if(param.getKwd().length() > 0){
-			result = searchService.getSearchResultForRest(param);
+			result = restService.getSearchResult(param);
+			setFilterInfo(param);
 		}
 		
+		if(result != null){
+			model.addAttribute("resultList",result.getResult());
+			model.addAttribute("resultCount",result.getTotal());
+		}
 		model.addAttribute("searchParam",param);
-		model.addAttribute("resultList",result.getRows());
-		model.addAttribute("resultCount",result.getTotalCount());
 		
 		return "search";
 		
@@ -57,6 +54,13 @@ public class SearchController {
 		
 		log.info(param.toString());
 		return "test";
+	}
+	
+	private void setFilterInfo(SearchParameter param){
+		RestResultVO result;
+		result = restService.getSearchResultGroupBy(param);
+		log.info("GroupBy Result:>>>>>>>>>>>>>>>");
+		log.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 	}
 
 }

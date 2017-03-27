@@ -20,7 +20,13 @@
 				<div>
 					<h4 th:utext="'['+ ${instance.fields.rec_idx}+ ']['+${instance.fields.company_nm}+']'+${instance.fields.title}"></h4> 
 				</div>
-				<p th:utext="${instance.fields.recruit_contents_nohtml}"></p>
+				<p th:utext="'공고분문 : ' +${instance.fields.recruit_contents_nohtml}"></p>
+				<p th:utext="'담당업무 : ' + ${instance.fields.description}"></p>
+				<p th:utext="'지역 : ' + ${instance.fields.area_mcode_nm} + ' / ' + ${instance.fields.area_bcode_nm}"></p>
+				<p th:utext="'직종코드  : ' + ${instance.fields.jikjong_cd} + ' / ' + ${instance.fields.jikjong_mcode}"></p>
+				<p th:utext="'직종코드  : ' + ${instance.fields.jik_kcode}"></p>
+				<p th:utext="'직종코드  : ' + ${instance.fields.upjik_bcode_nm}"></p>
+				<p th:utext="'직종코드  : ' + ${instance.fields.upjik_code_nm}"></p>
 			</div>
 		</div>
 		</form>
