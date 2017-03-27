@@ -18,15 +18,17 @@
 		<div class="list">
 			<div class="span10" th:each="instance : ${resultList}">
 				<div>
-					<h4 th:utext="'['+ ${instance.fields.rec_idx}+ ']['+${instance.fields.company_nm}+']'+${instance.fields.title}"></h4> 
+					<h4 th:utext="'['+ ${instance.rec_idx}+ ']['+${instance.company_nm}+']'+${instance.title}"></h4>
 				</div>
-				<p th:utext="'공고분문 : ' +${instance.fields.recruit_contents_nohtml}"></p>
-				<p th:utext="'담당업무 : ' + ${instance.fields.description}"></p>
-				<p th:utext="'지역 : ' + ${instance.fields.area_mcode_nm} + ' / ' + ${instance.fields.area_bcode_nm}"></p>
-				<p th:utext="'직종코드  : ' + ${instance.fields.jikjong_cd} + ' / ' + ${instance.fields.jikjong_mcode}"></p>
-				<p th:utext="'직종코드  : ' + ${instance.fields.jik_kcode}"></p>
-				<p th:utext="'직종코드  : ' + ${instance.fields.upjik_bcode_nm}"></p>
-				<p th:utext="'직종코드  : ' + ${instance.fields.upjik_code_nm}"></p>
+				<p th:utext="'공고분문 : ' +${instance.recruit_contents_nohtml}"></p>
+				<p th:utext="'담당업무 : ' + ${instance.description}"></p>
+				<p th:utext="'area_mcode_nm / area_bcode_nm : ' + ${instance.area_mcode_nm} + ' / ' + ${instance.area_bcode_nm}"></p>
+				<p th:utext="'area_mcode / area_bcode : ' + ${instance.area_mcode} + ' / ' + ${instance.area_bcode}"></p>
+				<p th:utext="'area_code / area_code_nm : ' + ${instance.area_code} + ' / ' + ${instance.area_code_nm}"></p>
+				<p th:utext="'직종코드  : ' + ${instance.jikjong_cd} + ' / ' + ${instance.jikjong_mcode}"></p>
+				<p th:utext="'직종코드  : ' + ${instance.jik_kcode}"></p>
+				
+				
 			</div>
 		</div>
 		</form>

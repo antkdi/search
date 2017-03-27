@@ -61,21 +61,37 @@ public class RestDao {
 	}
 	
 	
-	public RestResultVO getSearchResultGroupBy(SearchParameter param){
+	public RestResultVO getSearchResultGroupBy(SearchParameter param,String groupKey){
 		SearchQueryBuilder builder = new SearchQueryBuilder();
 		String volNm = env.getProperty(GlobalConstant.REST_VOL_RECRUIT_UPJIK);
-		String fields = "count(*)";
+		String fields = groupKey +",count(*)";
 		String where = "";
+		String limit = "5";
 
 		if(param.getKwd() != null && param.getKwd().length() > 0){
-			builder.setWhereClause(new StringBuffer("text_idx ='" +param.getKwd() + "' allword group by jikjong_cd,jikjong_mcode"));
+			builder.setWhereClause(new StringBuffer("text_idx ='" +param.getKwd() + "' allword group by " + groupKey +" order by count(*) desc"));
 		}
 
 		where = builder.getWhereClause().toString();
 
-		return restModule.searchAPI(fields, volNm, where);
+		return restModule.searchAPI(fields, volNm, where,limit);
 	}
 	
+	
+	public RestResultVO getInnerResultGroupBy(SearchParameter param,String bigGroupKey,String groupKey){
+		SearchQueryBuilder builder = new SearchQueryBuilder();
+		
+		if(param.getKwd() != null && param.getKwd().length() > 0){
+			builder.setWhereClause(new StringBuffer("text_idx ='" +param.getKwd() + "' allword and jikjong_cd='" + bigGroupKey +"' group by "+ groupKey));
+		}
+		builder.setSelectCloumn(groupKey+",count(*)");
+		builder.setSortingClause(new StringBuffer("order by count(*) desc"));
+		builder.setFrom(env.getProperty(GlobalConstant.REST_VOL_RECRUIT_UPJIK));
+		builder.setPageSize(Integer.valueOf(5));
+
+		return restModule.searchAPI(builder);
+	}
 		
 
 }
+

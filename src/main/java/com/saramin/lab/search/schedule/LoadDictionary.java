@@ -26,14 +26,19 @@ public class LoadDictionary {
 	@PostConstruct
 	public void loadDictionary(){
 		log.info("Start Load Dictionary.");
-		GlobalConstant.JIK_MCODE_CD_MAP = getJikjongMap(env.getProperty("recruit.jikcd.path"),":");
-		GlobalConstant.JIK_MCODE_NM_MAP = getJikjongMap(env.getProperty("recruit.jiknm.path"),":");
-		log.info("Compleate Load Dictionary.");
+		setConstantMap(GlobalConstant.JIK_MCODE_CD_MAP,env.getProperty("recruit.jikcd.path"),":");
+		setConstantMap(GlobalConstant.JIK_MCODE_NM_MAP,env.getProperty("recruit.jiknm.path"),":");
+		setConstantMap(GlobalConstant.JIK_BCODE_NM_MAP,env.getProperty("recruit.jiknm.path"),":");
+		setConstantMap(GlobalConstant.AREA_BCODE_MAP,env.getProperty("recruit.barea.cd"),":");
+		setConstantMap(GlobalConstant.AREA_BCODE_NM_MAP,env.getProperty("recruit_barea.nm"),":");
+		setConstantMap(GlobalConstant.AREA_MCODE_MAP,env.getProperty("recruit.marea.cd"),":");
+		setConstantMap(GlobalConstant.AREA_MCODE_NM_MAP,env.getProperty("recruit.marea.nm"),":");
 	}
 	
-	public HashMap<String,String> getJikjongMap(String filePath,String deli){
-		HashMap<String,String> tmpMap = new HashMap<String,String>();
-		return (HashMap<String, String>) common.fileReadToCollection(filePath, tmpMap, deli);
+	public <K,V> void setConstantMap(HashMap<K,V> repo, String filePath, String deli){
+		repo.clear();
+		common.fileReadToCollection(filePath, repo, deli);
 	}
+	
 
 }

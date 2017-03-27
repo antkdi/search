@@ -16,6 +16,8 @@ public class SearchQueryBuilder {
 	private StringBuffer sortingClause;
 	private String highlightKwd;
 	private String searchkwd;
+	private String selectCloumn;
+	private String from;
 	private int startOffset;
 	private int pageSize;
 	private int language;
